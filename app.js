@@ -12,6 +12,17 @@ function generateDalyCustomers(store){
 	}
 }
 
+function createSection(){
+	var parent = document.getElementsByTagName("body");
+	var child = document.createElement("section");
+	console.log(parent);
+	parent[0].appendChild(child);
+}
+
+createUL: function(){
+	
+}
+
 /* ========== Objects ========== */
 
 // Store Objects
@@ -76,6 +87,7 @@ for(var i = 0; i < allStores.length; i++){
 	generateDalyCustomers(allStores[i]);
 }
 
+createSection();
 // for(var i = 0; i < allStores.length; i++){
 // 	console.log(allStores[i].storeName);
 // 	console.log(allStores[i].numCustomers);
