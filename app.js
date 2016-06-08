@@ -57,9 +57,16 @@ var PikePlaceMarket = {
 	createLI: function(){
 		var parent = document.getElementsByTagName("ul");
 
-		for(var i in this.hours){
+		for(var i = 0; i < this.hours.length; i++){
 			var child = document.createElement("li");
-			child.textContent = (this.hours[i] + ": " + ((this.totalCupLBSPerHr[i]) + (this.totalLBSToGo[i])).toFixed(1) + " [" + this.numCustomers[i] + " customers, " + (this.totalCupLBSPerHr[i].toFixed(1)) + " cups (" + ((this.totalCupLBSPerHr[i]/16).toFixed(1)) + " lbs ), "  + (this.totalLBSToGo[i].toFixed(1)) + "lbs to-go]");
+			var hour = this.hours[i];
+			var totalLBS = ((this.totalCupLBSPerHr[i]) + (this.totalLBSToGo[i])).toFixed(1);
+			var customersThisHour = this.numCustomers[i];
+			var cupLBSThisHr = this.totalCupLBSPerHr[i];
+			var lbsToGoThisHr = this.totalLBSToGo[i];
+
+			child.textContent = (hour + ": " + totalLBS + " [" + customersThisHour + " customers, " + (cupLBSThisHr.toFixed(1)) + " cups (" + ((cupLBSThisHr/16).toFixed(1)) + "lbs), " + (this.totalLBSToGo[i].toFixed(1))+ " lbs to-go]");
+
 			console.log(child);
 			parent[0].appendChild(child);
 		}
@@ -115,9 +122,6 @@ var SeaTacAirport = {
 
 // Array of all stores
 var allStores = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
-
-// Parallel array of hours
-var hours = ["6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
 
 /* ========== Script ========== */
