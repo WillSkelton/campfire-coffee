@@ -1,0 +1,62 @@
+Customers have two options for purchases from Jo's kiosks:
+	*Individual 12 oz. cups of coffee
+	*Whole beans in 1 lb. packages
+
+Jo knows that you have been studying web development and has asked you to build
+a web application for her business. For now, she wants two pages:
+
+	-A public-facing page that visitors and customers will see at campfirecoffee.com
+	-A private internal data page that will be used for managing the business
+
+
+Problems to solve:
+
+	index.html (PUBLIC)
+		-Original photo is featured on the front page (campfire-coffee.jpg)
+		-Use the other pictures in the assets directory
+		-Include a listing of locations and kiosk hours (6:00am to 9:00pm, 7 days a week)
+		-Use a color palette that reflects the experience of going camping
+		-A custom font via Google Fonts (you can choose this to your liking)
+		-More details will be coming later... she'll get them to you soon... she promises... (seems like it is always coming "tomorrow")
+
+	data.html (PRIVATE)
+		-Forecast expected customers/hr at each location, daily customer total
+			*calculated by entering her projected minimum-vs.-maximum customers/hour into a form
+			*Market analysis has given information as starting point:
+				-expected minimum and maximum num of customers/hr at each location
+				-average amounts of cups and beans purchased by customers at each location
+				-These numbers will help Jo plan:
+				 	*amount of warm beans delivered to each kiosk each morning
+					*calculate staffing needs
+		-Total amount of beans sold at each location is a combination of:
+			*cups of coffee sold (1 pound of beans makes 16 cups)
+			*to-go pounds that are sold.
+		-Some locations will tend to sell more cups than pounds, whereas others will sell more pounds to tourists.
+
+		-Need to calculate and store the following values:
+			*random number of customers for each hour of operation that falls between the minimum and maximum hourly boundaries
+			*projected cups sold/hr at each location (based on the rate of cups/customer), plus daily totals for each location and the company as a whole
+			*The projected pounds sold per hour at each location (based on the rate of to-go pounds/customer), plus daily totals for each location and the company as a whole
+			*Total amount of beans needed - hourly, daily, and companywide totals
+			*number of employees needed at each location, each hour. Assume that each customer will require an average of two minutes of a single employee's time.
+				-This number needs to be rounded up to the nearest integer
+
+			*Format of Output:
+				Pike Place Market
+					-6:00am: 86.4 lbs [23 customers, 27.6 cups (1.4 lbs), 85 lbs to-go]
+					-7:00am: 191.1 lbs [51 customers, 61.2 cups (3.1 lbs), 188 lbs to-go]
+					-8:00am etc., same kind of thing calculated for each hour
+					-9:00am etc.
+				all the way to
+					-8:00pm: 51.1 lbs [21 customers, 61.2 cups (3.1 lbs), 48 lbs to-go]
+					-Total customers at Pike Place Market: 235
+					-Total cups sold at Pike Place Market: 189
+					-Total to-go pound packages sold at Pike Place Market: 26
+					-Total pounds of beans needed at Pike Place Market: 38.4
+
+User Stories:
+	-A webpage that displays individual store data for Campfire Coffee.
+	-Use object oriented programming to build this site.
+	-I want a functional, well organized webpage that displays my data in a user friendly fashion.
+	-I want my data broken out in a logical fashion.
+	-I want my data compiled so that I can see my product needs as business as a whole.
