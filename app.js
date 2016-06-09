@@ -40,6 +40,19 @@ var PikePlaceMarket = {
 			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
 			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] * this.lbsOfSolidCoffee[i];
 		}
+	},
+	createUL: function(){
+		var parent = document.getElementsByTagName("section");
+
+		var child = document.createElement("ul");
+		child.id = this.storeName.replace(/ /g, "");
+
+		var title = document.createElement("h2");
+		title.textContent = this.storeName;
+
+
+		parent[0].appendChild(title);
+		parent[0].appendChild(child);
 	}
 };
 
@@ -52,12 +65,16 @@ var PikePlaceMarket = {
 
 /* ========== Script ========== */
 
-//Calls generateRandomNumbers on all stores
-	PikePlaceMarket.generateRandomNumbers();
-
-console.log(PikePlaceMarket.customersThisHour);
-
 createSection();
+//Calls generateRandomNumbers on all stores
+PikePlaceMarket.generateRandomNumbers();
+PikePlaceMarket.createUL();
+
+// console.log(PikePlaceMarket.customersThisHour);
+// console.log(PikePlaceMarket.lbsOfLiqCoffee);
+// console.log(PikePlaceMarket.lbsOfSolidCoffee);
+// console.log(PikePlaceMarket.totalLbsOfBoth);
+
 
 // SeaTacAirport.createUL();
 // SeaTacAirport.createLI();
