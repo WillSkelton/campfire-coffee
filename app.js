@@ -38,7 +38,7 @@ var PikePlaceMarket = {
 			this.customersThisHour[i] = specificRandom(this.minCuststomerPerHr, this.maxCustomerPerHr);
 			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer;
 			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
-			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] * this.lbsOfSolidCoffee[i];
+			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] + this.lbsOfSolidCoffee[i];
 		}
 	},
 	createUL: function(){
