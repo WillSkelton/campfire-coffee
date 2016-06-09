@@ -53,6 +53,23 @@ var PikePlaceMarket = {
 
 		parent[0].appendChild(title);
 		parent[0].appendChild(child);
+	},
+
+	createLI: function(){
+		var parent = document.getElementsByTagName("ul");
+
+		for(var i = 0; i < this.hourArray.length; i++){
+			var child = document.createElement("li");
+
+			child.textContent = (this.hourArray[i] + ": ");
+			child.textContent += (this.totalLbsOfBoth[i].toFixed(1) + " lbs ");
+			child.textContent += ("[" + (this.customersThisHour[i].toFixed(0)) + " customers, ");
+			child.textContent += ((this.lbsOfLiqCoffee[i].toFixed(1)) + " cups (" + ((this.lbsOfLiqCoffee[i]/16).toFixed(1)) + " lbs), ");
+			child.textContent += ((this.lbsOfSolidCoffee[i]).toFixed(1) + " lbs to-go]");
+
+			console.log(child);
+			parent[0].appendChild(child);
+		}
 	}
 };
 
@@ -69,6 +86,7 @@ createSection();
 //Calls generateRandomNumbers on all stores
 PikePlaceMarket.generateRandomNumbers();
 PikePlaceMarket.createUL();
+PikePlaceMarket.createLI();
 
 // console.log(PikePlaceMarket.customersThisHour);
 // console.log(PikePlaceMarket.lbsOfLiqCoffee);
