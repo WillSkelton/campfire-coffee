@@ -48,7 +48,12 @@ function createTable(){
 		child.textContent = hours[i];
 		parent[0].appendChild(child);
 	}
-}
+	// Makes <tbody>
+	parent = document.getElementsByTagName("table");
+	child = document.createElement("tbody");
+	parent[0].appendChild(child);
+};
+
 
 
 /* ========== Constructor ========== */
@@ -66,6 +71,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.lbsOfLiqCoffee = [];
 	this.lbsOfSolidCoffee = [];
 	this.totalLbsOfBoth = [];
+
 	// Methods
 	this.generateRandomNumbers = function(){
 		for(var i = 0; i < this.hourArray.length; i++){
@@ -76,22 +82,16 @@ function store(name, min, max, cPC, tGCPC){
 		}
 	},
 
-	this.createUL = function(){
-		var parent = document.getElementsByTagName("section");
+	this.createRow = function(){
 
-		var child = document.createElement("ul");
+		var parent = document.getElementsByTagName("tbody");
+		var child = document.createElement("td");
+		child.textContent = this.storeName;
 		child.id = this.storeName.replace(/ /g, "");
-		// console.log(child.id);
-
-		var title = document.createElement("h2");
-		title.textContent = this.storeName;
-
-
-		parent[0].appendChild(title);
 		parent[0].appendChild(child);
 	},
 
-	this.createLI = function(){
+	this.fillRow = function(){
 		var parent = document.getElementById(this.storeName.replace(/ /g, "") );
 
 		for(var i = 0; i < this.hourArray.length; i++){
@@ -132,7 +132,8 @@ var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUn
 // }
 
 
-
+PikePlaceMarket.generateRandomNumbers();
+PikePlaceMarket.createRow();
 
 
 
