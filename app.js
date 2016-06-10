@@ -29,6 +29,11 @@ function createTable(){
 	child = document.createElement("tr");
 	parent[0].appendChild(child);
 
+	// Makes <td> for total lbs
+	parent = document.getElementsByTagName("tr");
+	child = document.createElement("td");
+	child.textContent = "Daily Location Total";
+	parent[0].appendChild(child);
 	// Makes <td> for all hours
 	for(var i = 0; i < hours.length; i++){
 		parent = document.getElementsByTagName("tr");
