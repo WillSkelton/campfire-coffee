@@ -71,6 +71,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.lbsOfLiqCoffee = [];
 	this.lbsOfSolidCoffee = [];
 	this.totalLbsOfBoth = [];
+	this.dailyTotal = 0;
 
 	// Methods
 	this.generateRandomNumbers = function(){
@@ -85,28 +86,33 @@ function store(name, min, max, cPC, tGCPC){
 	this.createRow = function(){
 
 		var parent = document.getElementsByTagName("tbody");
-		var child = document.createElement("td");
-		child.textContent = this.storeName;
+		var child = document.createElement("tr");
 		child.id = this.storeName.replace(/ /g, "");
 		parent[0].appendChild(child);
 	},
 
 	this.fillRow = function(){
+
+		// Add Store name
 		var parent = document.getElementById(this.storeName.replace(/ /g, "") );
+		var child = document.createElement("td");
+		child.textContent = this.storeName.replace(/ /g, "");
+		parent.appendChild(child);
+
+		// Daily Total
+		parent = document.getElementById(this.storeName.replace(/ /g, "") );
+		child = document.createElement("td");
 
 		for(var i = 0; i < this.hourArray.length; i++){
-			var child = document.createElement("li");
-
-			child.textContent = (this.hourArray[i] + ": ");
-			child.textContent += (this.totalLbsOfBoth[i].toFixed(1) + " lbs ");
-			child.textContent += ("[" + (this.customersThisHour[i].toFixed(0)) + " customers, ");
-			child.textContent += ((this.lbsOfLiqCoffee[i].toFixed(1)) + " cups (" + ((this.lbsOfLiqCoffee[i]/16).toFixed(1)) + " lbs), ");
-			child.textContent += ((this.lbsOfSolidCoffee[i]).toFixed(1) + " lbs to-go]");
-
-			console.log(child);
-			console.log(parent);
-			parent.appendChild(child);
+			this.dailyTotal += (this.totalLbsOfBoth[i]);
 		}
+		child.textContent = this.dailyTotal.toFixed(2);
+		parent.appendChild(child);
+		
+		// child.textContent = (this.hourArray[i] + ": ");
+		// child.textContent += ("[" + (this.customersThisHour[i].toFixed(0)) + " customers, ");
+		// child.textContent += ((this.lbsOfLiqCoffee[i].toFixed(1)) + " cups (" + ((this.lbsOfLiqCoffee[i]/16).toFixed(1)) + " lbs), ");
+		// child.textContent += ((this.lbsOfSolidCoffee[i]).toFixed(1) + " lbs to-go]");
 	}
 
 }
@@ -134,6 +140,7 @@ var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUn
 
 PikePlaceMarket.generateRandomNumbers();
 PikePlaceMarket.createRow();
+PikePlaceMarket.fillRow();
 
 
 
