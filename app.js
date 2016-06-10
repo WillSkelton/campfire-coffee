@@ -11,6 +11,7 @@ function createSection(){
 	console.log(child);
 	parent[0].appendChild(child);
 }
+
 function createTable(){
 	hours = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
 
@@ -27,6 +28,12 @@ function createTable(){
 	// Makes <tr>
 	parent = document.getElementsByTagName("thead");
 	child = document.createElement("tr");
+	parent[0].appendChild(child);
+
+	// Makes <td> for Location
+	parent = document.getElementsByTagName("tr");
+	child = document.createElement("td");
+		child.textContent = "Store Location";
 	parent[0].appendChild(child);
 
 	// Makes <td> for total lbs
