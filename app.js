@@ -12,12 +12,14 @@ function createSection(){
 	parent[0].appendChild(child);
 }
 
-function createTable(){
+function createTable(nameID){
 	hours = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
+	// Makes Table Title
 
 	// Makes <table>
 	var parent = document.getElementsByTagName("section");
 	var child = document.createElement("table");
+	child.id = nameID;
 	parent[0].appendChild(child);
 
 	// Makes <thead>
@@ -106,9 +108,17 @@ function store(name, min, max, cPC, tGCPC){
 		for(var i = 0; i < this.hourArray.length; i++){
 			this.dailyTotal += (this.totalLbsOfBoth[i]);
 		}
-		child.textContent = this.dailyTotal.toFixed(2);
+		child.textContent = (this.dailyTotal.toFixed(2)) + " lbs";
 		parent.appendChild(child);
-		
+
+		for (var i = 0; i < this.hourArray.length; i++) {
+			// hourArray[i]
+			parent = document.getElementById(this.storeName.replace(/ /g, "") );
+			child = document.createElement("td");
+			child.textContent = (this.totalLbsOfBoth[i].toFixed(2)) + " lbs";
+			parent.appendChild(child);
+		}
+
 		// child.textContent = (this.hourArray[i] + ": ");
 		// child.textContent += ("[" + (this.customersThisHour[i].toFixed(0)) + " customers, ");
 		// child.textContent += ((this.lbsOfLiqCoffee[i].toFixed(1)) + " cups (" + ((this.lbsOfLiqCoffee[i]/16).toFixed(1)) + " lbs), ");
@@ -120,7 +130,7 @@ function store(name, min, max, cPC, tGCPC){
 /* ========== Script ========== */
 
 createSection();
-createTable();
+createTable("beansNeeded");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
@@ -131,16 +141,14 @@ SeaTacAirport = new store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
-// for(var i = 0; i < shopArray.length; i++){
-// 	shopArray[i].generateRandomNumbers();
-// 	shopArray[i].createUL();
-// 	shopArray[i].createLI();
-// }
+for(var i = 0; i < shopArray.length; i++){
+	shopArray[i].generateRandomNumbers();
+	shopArray[i].createRow();
+	shopArray[i].fillRow();
+}
 
 
-PikePlaceMarket.generateRandomNumbers();
-PikePlaceMarket.createRow();
-PikePlaceMarket.fillRow();
+
 
 
 
