@@ -31,7 +31,6 @@ function store(name, min, max, cPC, tGCPC){
 	// Methods
 	this.generateRandomNumbers = function(){
 		for(var i = 0; i < this.hourArray.length; i++){
-			console.log(this.hourArray);
 			this.customersThisHour[i] = specificRandom(this.minCuststomerPerHr, this.maxCustomerPerHr);
 			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer;
 			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
@@ -44,7 +43,7 @@ function store(name, min, max, cPC, tGCPC){
 
 		var child = document.createElement("ul");
 		child.id = this.storeName.replace(/ /g, "");
-		console.log(child.id);
+		// console.log(child.id);
 
 		var title = document.createElement("h2");
 		title.textContent = this.storeName;
@@ -361,38 +360,37 @@ function store(name, min, max, cPC, tGCPC){
 /* ========== Script ========== */
 
 createSection();
-// Calls generateRandomNumbers on all stores
-// PikePlaceMarket.generateRandomNumbers();
-// PikePlaceMarket.createUL();
-// PikePlaceMarket.createLI();
-//
-// CapitolHill.generateRandomNumbers();
-// CapitolHill.createUL();
-// CapitolHill.createLI();
-//
-// SeattlePublicLibrary.generateRandomNumbers();
-// SeattlePublicLibrary.createUL();
-// SeattlePublicLibrary.createLI();
-//
-// SouthLakeUnion.generateRandomNumbers();
-// SouthLakeUnion.createUL();
-// SouthLakeUnion.createLI();
-//
-// SeaTacAirport.generateRandomNumbers();
-// SeaTacAirport.createUL();
-// SeaTacAirport.createLI();
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
-console.log(PikePlaceMarket);
+// console.log(PikePlaceMarket);
 PikePlaceMarket.generateRandomNumbers();
 PikePlaceMarket.createUL();
 PikePlaceMarket.createLI();
 
+CapitolHill = new store("Capitol Hill", 12, 28, 3.2, 0.03);
+// console.log(CapitolHill);
+CapitolHill.generateRandomNumbers();
+CapitolHill.createUL();
+CapitolHill.createLI();
 
+SeattlePublicLibrary = new store("Seattle Public Library", 9, 45, 2.6, 0.02);
+// console.log(SeattlePublicLibrary);
+SeattlePublicLibrary.generateRandomNumbers();
+SeattlePublicLibrary.createUL();
+SeattlePublicLibrary.createLI();
 
+SouthLakeUnion = new store("SouthLakeUnion", 5, 18, 1.3, 0.04);
+// console.log(SouthLakeUnion);
+SouthLakeUnion.generateRandomNumbers();
+SouthLakeUnion.createUL();
+SouthLakeUnion.createLI();
 
-
+SeaTacAirport = new store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
+// console.log(SeaTacAirport);
+SeaTacAirport.generateRandomNumbers();
+SeaTacAirport.createUL();
+SeaTacAirport.createLI();
 
 
 
