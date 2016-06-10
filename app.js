@@ -14,11 +14,17 @@ function createSection(){
 
 function createTable(nameID){
 	hours = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
+
 	// Makes Table Title
+	var parent = document.getElementsByTagName("section");
+	var child = document.createElement("h2");
+	child.textContent = nameID;
+	child.id = nameID.replace(/ /g, "");
+	parent[0].appendChild(child);
 
 	// Makes <table>
-	var parent = document.getElementsByTagName("section");
-	var child = document.createElement("table");
+	parent = document.getElementsByTagName("section");
+	child = document.createElement("table");
 	child.id = nameID;
 	parent[0].appendChild(child);
 
@@ -130,7 +136,7 @@ function store(name, min, max, cPC, tGCPC){
 /* ========== Script ========== */
 
 createSection();
-createTable("beansNeeded");
+createTable("Beans Needed");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
