@@ -160,7 +160,7 @@ function store(name, min, max, cPC, tGCPC){
 /* ========== Script ========== */
 
 createSection();
-// createTable("Beans Needed");
+createTable("Beans Needed");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
