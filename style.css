@@ -1,11 +1,15 @@
-#beansNeeded{
-	border-color: black;
-	border-width: 2px;
-	border-style: solid;
-	background-color: green;
+section{
+	display: flex;
+	flex-direction: column;
 }
 td {
 	border-color: black;
 	border-width: 2px;
 	border-style: solid;
+}
+#beansNeeded{
+	border-color: black;
+	border-width: 2px;
+	border-style: solid;
+	background-color: green;
 }

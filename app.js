@@ -47,7 +47,7 @@ function createTable(nameID){
 	// Makes <td> for total lbs
 	parent = document.getElementsByTagName("tr");
 	child = document.createElement("td");
-	child.textContent = "Daily Location Total";
+	child.textContent = "Total";
 	parent[0].appendChild(child);
 	// Makes <td> for all hours
 	for(var i = 0; i < hours.length; i++){
@@ -79,6 +79,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.lbsOfLiqCoffee = [];
 	this.lbsOfSolidCoffee = [];
 	this.totalLbsOfBoth = [];
+	this.numBaristasPerHr = [];
 	this.dailyTotal = 0;
 
 	// Methods
@@ -88,14 +89,16 @@ function store(name, min, max, cPC, tGCPC){
 			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer;
 			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
 			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] + this.lbsOfSolidCoffee[i];
+			this.numBaristasPerHr[i] = this.totalLbsOfBoth[i] * 2 / 60;
 		}
 	},
 
 	this.createRow = function(){
-
 		var parent = document.getElementsByTagName("tbody");
 		var child = document.createElement("tr");
 		child.id = this.storeName.replace(/ /g, "");
+		console.log(child);
+		console.log(parent[0]);
 		parent[0].appendChild(child);
 	},
 
@@ -117,26 +120,47 @@ function store(name, min, max, cPC, tGCPC){
 		child.textContent = (this.dailyTotal.toFixed(2)) + " lbs";
 		parent.appendChild(child);
 
+
 		for (var i = 0; i < this.hourArray.length; i++) {
-			// hourArray[i]
 			parent = document.getElementById(this.storeName.replace(/ /g, "") );
 			child = document.createElement("td");
 			child.textContent = (this.totalLbsOfBoth[i].toFixed(2)) + " lbs";
 			parent.appendChild(child);
 		}
-
-		// child.textContent = (this.hourArray[i] + ": ");
-		// child.textContent += ("[" + (this.customersThisHour[i].toFixed(0)) + " customers, ");
-		// child.textContent += ((this.lbsOfLiqCoffee[i].toFixed(1)) + " cups (" + ((this.lbsOfLiqCoffee[i]/16).toFixed(1)) + " lbs), ");
-		// child.textContent += ((this.lbsOfSolidCoffee[i]).toFixed(1) + " lbs to-go]");
 	}
 
+	this.labor = function(){
+		// Add Store name
+		var parent = document.getElementById(this.storeName.replace(/ /g, "") );
+		var child = document.createElement("td");
+		child.textContent = this.storeName.replace(/ /g, "");
+		parent.appendChild(child);
+
+		// Total labor
+		for(var i = 0; i < this.hourArray.length; i++){
+			this.numBaristasPerHr[0] += this.totalLbsOfBoth[i];
+		}
+		parent = document.getElementById(this.storeName.replace(/ /g, "") );
+		child = document.createElement("td");
+		console.log(this.numBaristasPerHr[0]);
+		child.textContent = (this.numBaristasPerHr[0].toFixed(2)) + " hours needed";
+		parent.appendChild(child);
+
+		// Hourly labor
+		for (var i = 0; i < this.hourArray.length; i++) {
+			parent = document.getElementById(this.storeName.replace(/ /g, "") );
+			child = document.createElement("td");
+			//console.log(this.numBaristasPerHr[i]);
+			child.textContent = (this.totalLbsOfBoth[i] * 2 / 60).toFixed(2) + " hours needed";
+			parent.appendChild(child);
+		}
+	}
 }
 
 /* ========== Script ========== */
 
 createSection();
-createTable("Beans Needed");
+// createTable("Beans Needed");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
@@ -154,6 +178,12 @@ for(var i = 0; i < shopArray.length; i++){
 }
 
 
+createTable("Baristas Needed");
+for(var i = 0; i < shopArray.length; i++){
+	shopArray[i].generateRandomNumbers();
+	shopArray[i].createRow();
+	shopArray[i].labor();
+}
 
 
 
