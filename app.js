@@ -1,5 +1,54 @@
 /* ========== Functions ========== */
 
+// function initTable(sectionID, name){
+// 	hours = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
+//
+// 	// Makes Table Title
+// 	var titleParent = document.getElementById(sectionID);
+// 	var title = document.createElement("h2");
+// 	child.textContent = name;
+// 	parent.appendChild(child);
+//
+// 	// Makes <table>
+// 	parent = document.getElementById(sectionID);
+// 	child = document.createElement("table");
+// 	child.id = sectionID;
+// 	parent.appendChild(child);
+//
+// 	// Makes <thead>
+// 	parent = document.getElementsByTagName("table");
+// 	child = document.createElement("thead");
+// 	parent[0].appendChild(child);
+//
+// 	// Makes <tr>
+// 	parent = document.getElementsByTagName("thead");
+// 	child = document.createElement("tr");
+// 	parent[0].appendChild(child);
+//
+// 	// Makes <td> for Location
+// 	parent = document.getElementsByTagName("tr");
+// 	child = document.createElement("td");
+// 		child.textContent = "Store Location";
+// 	parent[0].appendChild(child);
+//
+// 	// Makes <td> for total lbs
+// 	parent = document.getElementsByTagName("tr");
+// 	child = document.createElement("td");
+// 	child.textContent = "Total";
+// 	parent[0].appendChild(child);
+// 	// Makes <td> for all hours
+// 	for(var i = 0; i < hours.length; i++){
+// 		parent = document.getElementsByTagName("tr");
+// 		child = document.createElement("td");
+// 		child.textContent = hours[i];
+// 		parent[0].appendChild(child);
+// 	}
+// 	// Makes <tbody>
+// 	parent = document.getElementsByTagName("table");
+// 	child = document.createElement("tbody");
+// 	parent[0].appendChild(child);
+// };
+
 // Returns a random integer between a min and max
 function specificRandom(min, max){
 	return Math.random() * (max-min) + min;
@@ -12,55 +61,54 @@ function createSection(){
 	parent[0].appendChild(child);
 }
 
-function createTable(nameID){
-	hours = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
+function initTable(sectionID, tableID, name){
+	var hourArray = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
 
 	// Makes Table Title
-	var parent = document.getElementsByTagName("section");
-	var child = document.createElement("h2");
-	child.textContent = nameID;
-	child.id = nameID.replace(/ /g, "");
-	parent[0].appendChild(child);
+	var parentSection = document.getElementById(sectionID);
+	var tableTitle = document.createElement("h2");
+	tableTitle.textContent = name;
+	parentSection.appendChild(tableTitle);
 
-	// Makes <table>
-	parent = document.getElementsByTagName("section");
-	child = document.createElement("table");
-	child.id = nameID;
-	parent[0].appendChild(child);
+	// Makes Table
+	var parentSection = document.getElementById(sectionID);
+	var table = document.createElement("table");
+	table.id = tableID;
+	parentSection.appendChild(table);
 
-	// Makes <thead>
-	parent = document.getElementsByTagName("table");
-	child = document.createElement("thead");
-	parent[0].appendChild(child);
+	// Makes Table Header
+	var parentTable = document.getElementById(tableID);
+	var tableHeader = document.createElement("thead");
+	tableHeader.id = tableID + "-tHead";
+	parentTable.appendChild(tableHeader);
 
-	// Makes <tr>
-	parent = document.getElementsByTagName("thead");
-	child = document.createElement("tr");
-	parent[0].appendChild(child);
+	// Makes Row
+	var parentTHead = document.getElementById(tableHeader.id);
+	var tr = document.createElement("tr");
+	tr.id = tableHeader.id + "-tr";
 
-	// Makes <td> for Location
-	parent = document.getElementsByTagName("tr");
-	child = document.createElement("td");
-		child.textContent = "Store Location";
-	parent[0].appendChild(child);
+	// Fills Header
+		// Store Name Column
+	var parentTRow = document.getElementById(tr.id);
+	var td = document.createElement("td");
+	td.textContent = "Store Name";
+	parentTHead.appendChild(td);
 
-	// Makes <td> for total lbs
-	parent = document.getElementsByTagName("tr");
-	child = document.createElement("td");
-	child.textContent = "Total";
-	parent[0].appendChild(child);
-	// Makes <td> for all hours
-	for(var i = 0; i < hours.length; i++){
-		parent = document.getElementsByTagName("tr");
-		child = document.createElement("td");
-		child.textContent = hours[i];
-		parent[0].appendChild(child);
+		// Total column
+	var parentTRow = document.getElementById(tr.id);
+	var td = document.createElement("td");
+	td.textContent = "Total";
+	parentTHead.appendChild(td);
+
+	// Hours
+	for(var i = 0; i < hourArray.length; i++){
+		parentTRow = document.getElementById(tr.id);
+		td = document.createElement("td");
+		td.textContent = (hourArray[i]);
+		parentTHead.appendChild(td);
 	}
-	// Makes <tbody>
-	parent = document.getElementsByTagName("table");
-	child = document.createElement("tbody");
-	parent[0].appendChild(child);
-};
+
+}
 
 
 
@@ -159,8 +207,9 @@ function store(name, min, max, cPC, tGCPC){
 
 /* ========== Script ========== */
 
-createSection();
-createTable("Beans Needed");
+initTable("beanSection", "beanTable", "Beans Needed");
+
+initTable("baristaSection", "baristaTable", "Baristas Needed");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
@@ -171,19 +220,19 @@ SeaTacAirport = new store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
-for(var i = 0; i < shopArray.length; i++){
-	shopArray[i].generateRandomNumbers();
-	shopArray[i].createRow();
-	shopArray[i].fillRow();
-}
+// for(var i = 0; i < shopArray.length; i++){
+// 	shopArray[i].generateRandomNumbers();
+// 	shopArray[i].createRow();
+// 	shopArray[i].fillRow();
+// }
 
 
-createTable("Baristas Needed");
-for(var i = 0; i < shopArray.length; i++){
-	shopArray[i].generateRandomNumbers();
-	shopArray[i].createRow();
-	shopArray[i].labor();
-}
+// initTable("Baristas Needed");
+// for(var i = 0; i < shopArray.length; i++){
+// 	shopArray[i].generateRandomNumbers();
+// 	shopArray[i].createRow();
+// 	shopArray[i].labor();
+// }
 
 
 
