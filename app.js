@@ -88,6 +88,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.totalLbsOfBoth = [];
 	this.numBaristasPerHr = [];
 	this.dailyTotal = 0;
+	this.totalBaristas = 0;
 
 	// Methods
 	this.generateRandomNumbers = function(){
@@ -103,12 +104,6 @@ function store(name, min, max, cPC, tGCPC){
 
 	// Fills store's coffee usage row
 	this.resourceData = function(sectionID, tableID){
-
-		// Makes tbody
-		// var parentTable = document.getElementById(tableID);
-		// var tBody = document.createElement("tbody");
-		// tBody.id = (sectionID + "-" + tableID + "-" + "tBody");
-		// parentTable.appendChild(tBody);
 
 		// Makes Store Row
 		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
@@ -138,45 +133,48 @@ function store(name, min, max, cPC, tGCPC){
 			td = document.createElement("td");
 			td.textContent = (this.totalLbsOfBoth[i]).toFixed(2) + " lbs";
 			parentTRow.appendChild(td);
+		// End
 		}
-// End
 	}
 
 	// Fill store's necessary labor row
-	this.laborData = function(){
-		// Add Store name
-		var parent = document.getElementById(this.storeName.replace(/ /g, "") );
-		var child = document.createElement("td");
-		child.textContent = this.storeName.replace(/ /g, "");
-		parent.appendChild(child);
 
-		// Total laborData
-		for(var i = 0; i < this.hourArray.length; i++){
-			this.numBaristasPerHr[0] += this.totalLbsOfBoth[i];
-		}
-		parent = document.getElementById(this.storeName.replace(/ /g, "") );
-		child = document.createElement("td");
-		console.log(this.numBaristasPerHr[0]);
-		child.textContent = (this.numBaristasPerHr[0].toFixed(2)) + " hours needed";
-		parent.appendChild(child);
+	// Makes Store Row
+	this.laborData = function(sectionID, tableID){
+		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
+		var tr = document.createElement("tr");
+		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr " + this.storeName.replace(/ /g, "");
+		parentTBody.appendChild(tr);
 
-		// Hourly laborData
-		for (var i = 0; i < this.hourArray.length; i++) {
-			parent = document.getElementById(this.storeName.replace(/ /g, "") );
-			child = document.createElement("td");
-			//console.log(this.numBaristasPerHr[i]);
-			child.textContent = (this.totalLbsOfBoth[i] * 2 / 60).toFixed(2) + " hours needed";
-			parent.appendChild(child);
+			// Store Name
+		var parentTRow = document.getElementById(tr.id);
+		var td = document.createElement("td");
+		td.textContent = this.storeName;
+		parentTRow.appendChild(td);
+
+			// Daily Total
+		parentTRow = document.getElementById(tr.id);
+		td = document.createElement("td");
+
+		for(i = 0; i < this.hourArray.length; i++){
+			this.totalBaristas += this.totalLbsOfBoth[i] * 2 / 60;
 		}
+		td.textContent = this.totalBaristas.toFixed(2) + " hrs";
+		parentTRow.appendChild(td);
+
+			// hourly total
+		for(i = 0; i < this.hourArray.length; i++){
+			parentTRow = document.getElementById(tr.id);
+			td = document.createElement("td");
+			td.textContent = (this.numBaristasPerHr[i]).toFixed(2) + " hrs";
+			parentTRow.appendChild(td);
+		}
+		// End
 	}
 }
 
 /* ========== Script ========== */
 
-initTable("beanSection", "beanTable", "Beans Needed");
-
-
-initTable("baristaSection", "baristaTable", "Baristas Needed");
 
 // Here it goes
 PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
@@ -188,31 +186,22 @@ SeaTacAirport = new store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
 
-// shopArray[1].generateRandomNumbers();
-// shopArray[1].resourceData("beanSection", "beanTable");
-//
-// shopArray[2].generateRandomNumbers();
-// shopArray[2].resourceData("beanSection", "beanTable");
-//
-// shopArray[3].generateRandomNumbers();
-// shopArray[3].resourceData("beanSection", "beanTable");
 
 
-// shopArray[0].resourceData("baristaSection", "baristaTable");
+
+initTable("beanSection", "beanTable", "Beans Needed");
+
+initTable("baristaSection", "baristaTable", "Baristas Needed");
 
 for(var x = 0; x < shopArray.length; x++){
 	console.log(x);
 	shopArray[x].generateRandomNumbers();
 	shopArray[x].resourceData("beanSection", "beanTable");
+	shopArray[x].laborData("baristaSection", "baristaTable");
 }
 
 
-// initTable("Baristas Needed");
-// for(var i = 0; i < shopArray.length; i++){
-// 	shopArray[i].generateRandomNumbers();
-// 	shopArray[i].createRow();
-// 	shopArray[i].laborData();
-// }
+
 
 
 
