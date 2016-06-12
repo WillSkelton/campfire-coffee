@@ -120,7 +120,7 @@ function store(name, min, max, cPC, tGCPC){
 		// Makes Store Row
 		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
 		var tr = document.createElement("tr");
-		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr " + this.storeName.replace(/ /g, "");
+		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
 		parentTBody.appendChild(tr);
 
 			// Store Name
@@ -155,7 +155,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.laborData = function(sectionID, tableID){
 		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
 		var tr = document.createElement("tr");
-		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr " + this.storeName.replace(/ /g, "");
+		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
 		parentTBody.appendChild(tr);
 
 			// Store Name
