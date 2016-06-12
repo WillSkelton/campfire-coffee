@@ -69,7 +69,8 @@ function initTable(sectionID, tableID, name){
 
 }
 
-function createFooter() {
+function createFooter(sectionID, tableID, units) {
+	var totalyTotal = 0;
 	var hourArray = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
 	var footerArray = [];
 	for(var y = 0; y < hourArray.length; y++){
@@ -77,9 +78,44 @@ function createFooter() {
 		for(var z = 0; z < shopArray.length; z++){
 			footerArray[y] += shopArray[z].totalLbsOfBoth[y];
 		}
-		// console.log(footerArray[y]);
 	}
-	return footerArray;
+
+	// Initializes footer
+	var parentTable = document.getElementById(tableID);
+	var tableFooter = document.createElement("tfoot");
+	tableFooter.id = tableID + "-tfoot";
+	parentTable.appendChild(tableFooter);
+
+	// Total row
+	var parentFooter = document.getElementById(tableFooter.id);
+	var totalRow = document.createElement("tr");
+	totalRow.id = tableID + "-tfoot-" + "tr";
+	parentFooter.appendChild(totalRow);
+
+	// Total text box
+	var parentTotalRow = document.getElementById(totalRow.id);
+	var td = document.createElement("td");
+	td.textContent = "Total";
+	parentTotalRow.appendChild(td);
+
+	// Makes and adds total value
+	for(var t = 0; t < footerArray.length; t++){
+		totalyTotal += footerArray[t];
+	}
+	console.log(totalyTotal);
+	parentTotalRow = document.getElementById(totalRow.id);
+	td = document.createElement("td");
+	td.textContent = totalyTotal.toFixed(2) + " " + units;
+	parentTotalRow.appendChild(td);
+
+	console.log(footerArray);
+	for(var t = 0; t < hourArray.length; t++){
+		parentTotalRow = document.getElementById(totalRow.id);
+		td = document.createElement("td");
+		td.textContent = footerArray[t].toFixed(2);
+		parentTotalRow.appendChild(td);
+	}
+	// return footerArray;
 }
 
 
@@ -206,17 +242,19 @@ initTable("beanSection", "beanTable", "Beans Needed");
 initTable("baristaSection", "baristaTable", "Baristas Needed");
 
 for(var x = 0; x < shopArray.length; x++){
-	console.log(x);
 	shopArray[x].generateRandomNumbers();
 	shopArray[x].resourceData("beanSection", "beanTable");
 	shopArray[x].laborData("baristaSection", "baristaTable");
 }
 
-var test = createFooter();
-for(var d = 0; d < test.length; d++){
-	test[d] = test[d].toFixed(2);
-}
-console.log(test);
+createFooter("beanSection", "beanTable", "lbs");
+createFooter("baristaSection", "baristaTable", "hrs");
+
+// var test = createFooter();
+// for(var d = 0; d < test.length; d++){
+// 	test[d] = test[d].toFixed(2);
+// }
+// console.log(test);
 
 
 
