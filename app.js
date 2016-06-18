@@ -1,6 +1,5 @@
 /* ========== Functions ========== */
 
-// To-Do: Add a function (displayFunctions) for displaying all the stores and their information
 // Returns a random integer between a min and max
 function specificRandom(min, max){
 	return Math.random() * (max-min) + min;
@@ -147,7 +146,7 @@ function createFooter(sectionID, tableID, units) {
 	}
 }
 
-function eventHandler(event){
+function addStore(event){
 	event.preventDefault();
 	removeTable();
 
@@ -208,6 +207,10 @@ function addTable(){
 	createFooter("beanSection", "beanTable", "lbs");
 	createFooter("baristaSection", "baristaTable", "hrs");
 }
+
+// function removeStore(){
+//
+// }
 
 function randomizeButton(){
 	event.preventDefault();
@@ -339,7 +342,7 @@ var randomizer = document.getElementById(randomize);
 randomize.addEventListener("click", randomizeButton);
 
 var form = document.getElementById("form");
-form.addEventListener("submit", eventHandler);
+form.addEventListener("submit", addStore);
 
 
 
