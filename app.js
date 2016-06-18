@@ -208,10 +208,6 @@ function addTable(){
 	createFooter("baristaSection", "baristaTable", "hrs");
 }
 
-// function removeStore(){
-//
-// }
-
 function randomizeButton(){
 	event.preventDefault();
 
@@ -330,7 +326,7 @@ Store.prototype.laborData = function(sectionID, tableID){
 PikePlaceMarket = new Store("Pike Place Market", 14, 35, 1.2, 0.34);
 CapitolHill = new Store("Capitol Hill", 12, 28, 3.2, 0.03);
 SeattlePublicLibrary = new Store("Seattle Public Library", 9, 45, 2.6, 0.02);
-SouthLakeUnion = new Store("SouthLakeUnion", 5, 18, 1.3, 0.04);
+SouthLakeUnion = new Store("South Lake Union", 5, 18, 1.3, 0.04);
 SeaTacAirport = new Store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];

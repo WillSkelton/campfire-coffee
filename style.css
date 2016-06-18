@@ -1,49 +1,103 @@
-/*section{
-	display: flex;
-	flex-direction: column;
-}*/
-
-
+table{
+	border-collapse: collapse;
+}
 td {
 	border-color: black;
 	border-width: 2px;
 	border-style: solid;
-	border-collapse: collapse;
 }
-
 
 
 input{
 	border: 1.5px solid black;
+	background-color: #C8EDA1;
+}
+
+#randomizeSection{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid red;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+	width: 420px;
+}
+
+#randomize{
+	background-image: url("http://i.imgur.com/Rp1Rr.gif?noredirect");
+	border-radius: 10px;
+	width: 380px;
+	height: 82px;
+
+}
+
+#beanSection{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-color: black;
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 10px;
+	background-color: #C29E78;
+	/*A0BDDB;*/
+	padding: 10px;
+	margin: 10px;
+}
+
+#baristaSection{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-color: black;
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 10px;
+	background-color: #A0BDDB;
+	/*A0BDDB;*/
+	padding: 10px;
+	margin: 10px;
 }
 
 #beansNeeded{
-	border-color: black;
-	border-width: 2px;
-	border-style: solid;
-	background-color: green;
+
 }
+
+#data{
+	background-color: #ccc;
+}
+
 #form{
-	border: 3px solid red;
+	border: 3px solid black;
+	background-color: #C6A1ED;
+	border-radius: 10px;
 	padding: 10px;
-	margin-top: 20px;
+	margin: 10px;
 }
 
 #homeLink{
 	text-decoration: none;
 	color: black;
 }
+
 #homeLink:hover{
 	color: green;
 	text-decoration: underline;
 }
 
 #beanTable{
-	border: 3px solid blue;
 }
 
 #baristaTable{
-		border: 3px solid green;
+}
+
+#addNewStore{
+	display: flex;
+	align-items: center;
 }
 
 /*end*/
