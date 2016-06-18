@@ -149,23 +149,31 @@ function createFooter(sectionID, tableID, units) {
 
 function eventHandler(event){
 	event.preventDefault();
+	removeTable();
 
+	var name = event.target.name.value;
+	var min = event.target.min.value;
+	var max = event.target.max.value;
+	var cPC = event.target.cPC.value;
+	var tGCPC = event.target.tGCPC.value;
+	var camelName = name.replace(/ /g, "");
+
+	camelName = new Store(name, min, max, cPC, tGCPC);
+
+	shopArray.push(camelName);
+
+	addTable();
 
 }
 
-function randomizeButton(){
-	event.preventDefault();
-
-
+function removeTable(){
 	var parentSection = document.getElementById("beanSection");
 	var tableTitle = document.getElementById("beanSection-title");
-	console.log(tableTitle);
 	parentSection.removeChild(tableTitle);
 
 	parentSection = document.getElementById("baristaSection");
 	tableTitle = document.getElementById("baristaSection-title");
 	parentSection.removeChild(tableTitle);
-
 
 	// removes bean table
 	var section = document.getElementById("beanSection");
@@ -176,7 +184,9 @@ function randomizeButton(){
 	var section = document.getElementById("baristaSection");
 	var table = document.getElementById("baristaTable");
 	section.removeChild(table);
+}
 
+function addTable(){
 	// adds tables back
 	initTable("beanSection", "beanTable", "Beans Needed");
 	initTable("baristaSection", "baristaTable", "Baristas Needed");
@@ -197,6 +207,14 @@ function randomizeButton(){
 
 	createFooter("beanSection", "beanTable", "lbs");
 	createFooter("baristaSection", "baristaTable", "hrs");
+}
+
+function randomizeButton(){
+	event.preventDefault();
+
+	removeTable();
+	addTable();
+
 }
 
 /* ========== Constructor ========== */
@@ -305,7 +323,6 @@ Store.prototype.laborData = function(sectionID, tableID){
 
 /* ========== Script ========== */
 
-
 // Here it goes
 PikePlaceMarket = new Store("Pike Place Market", 14, 35, 1.2, 0.34);
 CapitolHill = new Store("Capitol Hill", 12, 28, 3.2, 0.03);
@@ -316,22 +333,7 @@ SeaTacAirport = new Store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
 
-
-
-
-initTable("beanSection", "beanTable", "Beans Needed");
-
-initTable("baristaSection", "baristaTable", "Baristas Needed");
-
-for(var x = 0; x < shopArray.length; x++){
-	shopArray[x].generateRandomNumbers();
-	shopArray[x].resourceData("beanSection", "beanTable");
-	shopArray[x].laborData("baristaSection", "baristaTable");
-}
-
-createFooter("beanSection", "beanTable", "lbs");
-createFooter("baristaSection", "baristaTable", "hrs");
-
+addTable();
 // Event listener part
 var randomizer = document.getElementById(randomize);
 randomize.addEventListener("click", randomizeButton);
