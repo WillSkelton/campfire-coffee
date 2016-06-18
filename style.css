@@ -1,17 +1,32 @@
-section{
+/*section{
 	display: flex;
 	flex-direction: column;
-}
+}*/
+
+
 td {
 	border-color: black;
 	border-width: 2px;
 	border-style: solid;
+	border-collapse: collapse;
 }
+
+
+
+input{
+	border: 1.5px solid black;
+}
+
 #beansNeeded{
 	border-color: black;
 	border-width: 2px;
 	border-style: solid;
 	background-color: green;
+}
+#store-form{
+	border: 3px solid red;
+	padding: 10px;
+	margin-top: 20px;
 }
 
 #homeLink{
@@ -22,3 +37,13 @@ td {
 	color: green;
 	text-decoration: underline;
 }
+
+#beanTable{
+	border: 3px solid blue;
+}
+
+#baristaTable{
+		border: 3px solid green;
+}
+
+/*end*/

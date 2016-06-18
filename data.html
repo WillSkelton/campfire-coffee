@@ -11,13 +11,47 @@
 
 		</header>
 
+		<!-- Section for bean table -->
 		<section id="beanSection">
 
 		</section>
 
+		<!-- Section for barista table -->
 		<section id="baristaSection">
 
 		</section>
+
+		<!-- section for form -->
+		<section id="form">
+			<h2>Add New Store</h2>
+			<form class="newstore" action="app.js" method="post">
+
+				<p></p>
+				<label for="name">Store-Name:</label>
+				<input type="text"  id="name" name="name" size="15">
+
+				<p></p>
+				<label for="min">Minimum Expected Customers Per hour:</label>
+				<input type="number" id="min" name="min" size="15">
+
+				<p></p>
+				<label for="max">Maximum Expected Customers Per hour:</label>
+				<input type="number" id="max" name="max" size="15">
+
+				<p></p>
+				<label for="cPC">Average Number of Cups of Coffee Per Customer:</label>
+				<input type="number" id="cPC" name="cPC" size="15">
+
+				<p></p>
+				<label for="tGCPC">Average Number of Pounds of To-Go Coffee Per Customer:</label>
+				<input type="number" name="tGCPC" size="15">
+
+				<p>=====================================================================</p>
+				<input type="submit" value="Submit Store" id="new-store">
+
+			</form>
+		</section>
+
 		<script type="text/javascript" src='app.js'></script>
 	</body>
 

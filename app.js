@@ -1,5 +1,6 @@
 /* ========== Functions ========== */
 
+// To-Do: Add a function (displayFunctions) for displaying all the stores and their information
 // Returns a random integer between a min and max
 function specificRandom(min, max){
 	return Math.random() * (max-min) + min;
@@ -8,7 +9,6 @@ function specificRandom(min, max){
 function createSection(){
 	var parent = document.getElementsByTagName("body");
 	var child = document.createElement("section");
-	console.log(child);
 	parent[0].appendChild(child);
 }
 
@@ -102,25 +102,40 @@ function createFooter(sectionID, tableID, units) {
 	for(var t = 0; t < footerArray.length; t++){
 		totalyTotal += footerArray[t];
 	}
-	console.log(totalyTotal);
 	parentTotalRow = document.getElementById(totalRow.id);
 	td = document.createElement("td");
+	// To-Do: Fix this math bug
 	td.textContent = totalyTotal.toFixed(2) + " " + units;
 	parentTotalRow.appendChild(td);
 
-	console.log(footerArray);
 	for(var t = 0; t < hourArray.length; t++){
 		parentTotalRow = document.getElementById(totalRow.id);
 		td = document.createElement("td");
-		td.textContent = footerArray[t].toFixed(2);
+		td.textContent = footerArray[t].toFixed(2) + " " + units;
 		parentTotalRow.appendChild(td);
 	}
 	// return footerArray;
 }
 
+function eventHandler(event){
+	event.preventDefault();
+
+	console.log(event);
+	console.log(event.target.name.value);
+	console.log(event.target.min.value);
+	console.log(event.target.max.value);
+	console.log(event.target.cPC.value);
+	console.log(event.target.tGCPC.value);
+
+
+}
+// function tryForms(formID){
+// 	var name = document.getElementById("formID");
+// 	var
+// }
 
 /* ========== Constructor ========== */
-function store(name, min, max, cPC, tGCPC){
+function Store(name, min, max, cPC, tGCPC){
 	// Passed in
 	this.storeName = name;
 	this.minCuststomerPerHr = min;
@@ -142,7 +157,7 @@ function store(name, min, max, cPC, tGCPC){
 	this.generateRandomNumbers = function(){
 		for(var i = 0; i < this.hourArray.length; i++){
 			this.customersThisHour[i] = specificRandom(this.minCuststomerPerHr, this.maxCustomerPerHr);
-			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer;
+			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer/16;
 			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
 			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] + this.lbsOfSolidCoffee[i];
 			this.numBaristasPerHr[i] = this.totalLbsOfBoth[i] * 2 / 60;
@@ -225,11 +240,11 @@ function store(name, min, max, cPC, tGCPC){
 
 
 // Here it goes
-PikePlaceMarket = new store("Pike Place Market", 14, 35, 1.2, 0.34);
-CapitolHill = new store("Capitol Hill", 12, 28, 3.2, 0.03);
-SeattlePublicLibrary = new store("Seattle Public Library", 9, 45, 2.6, 0.02);
-SouthLakeUnion = new store("SouthLakeUnion", 5, 18, 1.3, 0.04);
-SeaTacAirport = new store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
+PikePlaceMarket = new Store("Pike Place Market", 14, 35, 1.2, 0.34);
+CapitolHill = new Store("Capitol Hill", 12, 28, 3.2, 0.03);
+SeattlePublicLibrary = new Store("Seattle Public Library", 9, 45, 2.6, 0.02);
+SouthLakeUnion = new Store("SouthLakeUnion", 5, 18, 1.3, 0.04);
+SeaTacAirport = new Store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
@@ -250,11 +265,12 @@ for(var x = 0; x < shopArray.length; x++){
 createFooter("beanSection", "beanTable", "lbs");
 createFooter("baristaSection", "baristaTable", "hrs");
 
-// var test = createFooter();
-// for(var d = 0; d < test.length; d++){
-// 	test[d] = test[d].toFixed(2);
-// }
-// console.log(test);
+// Event listener part
+var form = document.getElementById("form");
+form.addEventListener("submit", eventHandler);
+
+
+
 
 
 
