@@ -120,12 +120,11 @@ function createFooter(sectionID, tableID, units) {
 function eventHandler(event){
 	event.preventDefault();
 
-	console.log(event);
-	console.log(event.target.name.value);
-	console.log(event.target.min.value);
-	console.log(event.target.max.value);
-	console.log(event.target.cPC.value);
-	console.log(event.target.tGCPC.value);
+	var name = event.target.name.value;
+	var min = event.target.min.value;
+	var max = event.target.max.value;
+	var cPC = event.target.cPC.value;
+	var tGCPC = event.target.tGCPC.value;
 
 
 }
