@@ -19,6 +19,7 @@ function initTable(sectionID, tableID, name){
 	var parentSection = document.getElementById(sectionID);
 	var tableTitle = document.createElement("h2");
 	tableTitle.textContent = name;
+	tableTitle.id = sectionID + "-title";
 	parentSection.appendChild(tableTitle);
 
 	// Makes Table
@@ -71,12 +72,24 @@ function initTable(sectionID, tableID, name){
 
 function createFooter(sectionID, tableID, units) {
 	var totalyTotal = 0;
+
 	var hourArray = ["6:00 am", "7:00 am", "8:00 am", "9:00 am", "10:00 am", "11:00 am", "12:00 pm", "1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm", "7:00 pm", "8:00 pm", "9:00 pm"];
-	var footerArray = [];
+	var beanFooterArray = [0];
+	var baristasFooterArray = [0];
+
+	// total beans
 	for(var y = 0; y < hourArray.length; y++){
-		footerArray[y] = 0.0;
+		beanFooterArray[y] = 0.0;
 		for(var z = 0; z < shopArray.length; z++){
-			footerArray[y] += shopArray[z].totalLbsOfBoth[y];
+			beanFooterArray[y] += shopArray[z].totalLbsOfBoth[y];
+		}
+	}
+
+	//total hours
+	for(var y = 0; y < hourArray.length; y++){
+		baristasFooterArray[y] = 0.0;
+		for(var z = 0; z < shopArray.length; z++){
+			baristasFooterArray[y] += shopArray[z].numBaristasPerHr[y];
 		}
 	}
 
@@ -99,39 +112,110 @@ function createFooter(sectionID, tableID, units) {
 	parentTotalRow.appendChild(td);
 
 	// Makes and adds total value
-	for(var t = 0; t < footerArray.length; t++){
-		totalyTotal += footerArray[t];
-	}
-	parentTotalRow = document.getElementById(totalRow.id);
-	td = document.createElement("td");
-	// To-Do: Fix this math bug
-	td.textContent = totalyTotal.toFixed(2) + " " + units;
-	parentTotalRow.appendChild(td);
-
-	for(var t = 0; t < hourArray.length; t++){
+	if (units === "lbs") {
+		for(var t = 0; t < beanFooterArray.length; t++){
+			totalyTotal += beanFooterArray[t];
+		}
 		parentTotalRow = document.getElementById(totalRow.id);
 		td = document.createElement("td");
-		td.textContent = footerArray[t].toFixed(2) + " " + units;
+
+		td.textContent = totalyTotal.toFixed(2) + " " + units;
 		parentTotalRow.appendChild(td);
+
+		for(var t = 0; t < hourArray.length; t++){
+			parentTotalRow = document.getElementById(totalRow.id);
+			td = document.createElement("td");
+			td.textContent = beanFooterArray[t].toFixed(2) + " " + units;
+			parentTotalRow.appendChild(td);
+		}
+	}else {
+		for(var t = 0; t < baristasFooterArray.length; t++){
+			totalyTotal += baristasFooterArray[t];
+		}
+		parentTotalRow = document.getElementById(totalRow.id);
+		td = document.createElement("td");
+
+		td.textContent = totalyTotal.toFixed(2) + " " + units;
+		parentTotalRow.appendChild(td);
+
+		for(var t = 0; t < hourArray.length; t++){
+			parentTotalRow = document.getElementById(totalRow.id);
+			td = document.createElement("td");
+			td.textContent = baristasFooterArray[t].toFixed(2) + " " + units;
+			parentTotalRow.appendChild(td);
+		}
 	}
-	// return footerArray;
 }
 
 function eventHandler(event){
 	event.preventDefault();
+	removeTable();
 
 	var name = event.target.name.value;
 	var min = event.target.min.value;
 	var max = event.target.max.value;
 	var cPC = event.target.cPC.value;
 	var tGCPC = event.target.tGCPC.value;
+	var camelName = name.replace(/ /g, "");
 
+	camelName = new Store(name, min, max, cPC, tGCPC);
+
+	shopArray.push(camelName);
+
+	addTable();
 
 }
-// function tryForms(formID){
-// 	var name = document.getElementById("formID");
-// 	var
-// }
+
+function removeTable(){
+	var parentSection = document.getElementById("beanSection");
+	var tableTitle = document.getElementById("beanSection-title");
+	parentSection.removeChild(tableTitle);
+
+	parentSection = document.getElementById("baristaSection");
+	tableTitle = document.getElementById("baristaSection-title");
+	parentSection.removeChild(tableTitle);
+
+	// removes bean table
+	var section = document.getElementById("beanSection");
+	var table = document.getElementById("beanTable");
+	section.removeChild(table);
+
+	// removes barista table
+	var section = document.getElementById("baristaSection");
+	var table = document.getElementById("baristaTable");
+	section.removeChild(table);
+}
+
+function addTable(){
+	// adds tables back
+	initTable("beanSection", "beanTable", "Beans Needed");
+	initTable("baristaSection", "baristaTable", "Baristas Needed");
+
+
+	for(var x = 0; x < shopArray.length; x++){
+		shopArray[x].customersThisHour = [];
+		shopArray[x].lbsOfLiqCoffee = [];
+		shopArray[x].lbsOfSolidCoffee = [];
+		shopArray[x].totalLbsOfBoth = [];
+		shopArray[x].numBaristasPerHr = [];
+		shopArray[x].dailyTotal = 0;
+		shopArray[x].totalBaristas = 0;
+		shopArray[x].generateRandomNumbers();
+		shopArray[x].resourceData("beanSection", "beanTable");
+		shopArray[x].laborData("baristaSection", "baristaTable");
+	}
+
+	createFooter("beanSection", "beanTable", "lbs");
+	createFooter("baristaSection", "baristaTable", "hrs");
+}
+
+function randomizeButton(){
+	event.preventDefault();
+
+	removeTable();
+	addTable();
+
+}
 
 /* ========== Constructor ========== */
 function Store(name, min, max, cPC, tGCPC){
@@ -152,91 +236,92 @@ function Store(name, min, max, cPC, tGCPC){
 	this.dailyTotal = 0;
 	this.totalBaristas = 0;
 
-	// Methods
-	this.generateRandomNumbers = function(){
-		for(var i = 0; i < this.hourArray.length; i++){
-			this.customersThisHour[i] = specificRandom(this.minCuststomerPerHr, this.maxCustomerPerHr);
-			this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer/16;
-			this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
-			this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] + this.lbsOfSolidCoffee[i];
-			this.numBaristasPerHr[i] = this.totalLbsOfBoth[i] * 2 / 60;
-		}
-	},
+}
 
-
-	// Fills store's coffee usage row
-	this.resourceData = function(sectionID, tableID){
-
-		// Makes Store Row
-		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
-		var tr = document.createElement("tr");
-		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
-		parentTBody.appendChild(tr);
-
-			// Store Name
-		var parentTRow = document.getElementById(tr.id);
-		var td = document.createElement("td");
-		td.textContent = this.storeName;
-		parentTRow.appendChild(td);
-
-			// Daily Total
-		parentTRow = document.getElementById(tr.id);
-		td = document.createElement("td");
-
-		for(i = 0; i < this.hourArray.length; i++){
-			this.dailyTotal += this.totalLbsOfBoth[i];
-		}
-		td.textContent = this.dailyTotal.toFixed(2) + " lbs";
-		parentTRow.appendChild(td);
-
-			// Hourly Total
-		for(i = 0; i < this.hourArray.length; i++){
-			parentTRow = document.getElementById(tr.id);
-			td = document.createElement("td");
-			td.textContent = (this.totalLbsOfBoth[i]).toFixed(2) + " lbs";
-			parentTRow.appendChild(td);
-		// End
-		}
+/* ========== Methods ========== */
+//generates and fills random number arrays
+Store.prototype.generateRandomNumbers = function(){
+	for(var i = 0; i < this.hourArray.length; i++){
+		this.customersThisHour[i] = specificRandom(this.minCuststomerPerHr, this.maxCustomerPerHr);
+		this.lbsOfLiqCoffee[i] = this.customersThisHour[i] * this.cupsPerCustomer/16;
+		this.lbsOfSolidCoffee[i] = this.customersThisHour[i] * this.toGoCupsPerCustomer;
+		this.totalLbsOfBoth[i] = this.lbsOfLiqCoffee[i] + this.lbsOfSolidCoffee[i];
+		this.numBaristasPerHr[i] = this.totalLbsOfBoth[i] * 2 / 60;
 	}
+},
 
-	// Fill store's necessary labor row
+// Fills store's coffee usage row
+Store.prototype.resourceData = function(sectionID, tableID){
 
 	// Makes Store Row
-	this.laborData = function(sectionID, tableID){
-		var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
-		var tr = document.createElement("tr");
-		tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
-		parentTBody.appendChild(tr);
+	var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
+	var tr = document.createElement("tr");
+	tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
+	parentTBody.appendChild(tr);
 
-			// Store Name
-		var parentTRow = document.getElementById(tr.id);
-		var td = document.createElement("td");
-		td.textContent = this.storeName;
-		parentTRow.appendChild(td);
+		// Store Name
+	var parentTRow = document.getElementById(tr.id);
+	var td = document.createElement("td");
+	td.textContent = this.storeName;
+	parentTRow.appendChild(td);
 
-			// Daily Total
+		// Daily Total
+	parentTRow = document.getElementById(tr.id);
+	td = document.createElement("td");
+
+	for(i = 0; i < this.hourArray.length; i++){
+		this.dailyTotal += this.totalLbsOfBoth[i];
+	}
+	td.textContent = this.dailyTotal.toFixed(2) + " lbs";
+	parentTRow.appendChild(td);
+
+		// Hourly Total
+	for(i = 0; i < this.hourArray.length; i++){
 		parentTRow = document.getElementById(tr.id);
 		td = document.createElement("td");
-
-		for(i = 0; i < this.hourArray.length; i++){
-			this.totalBaristas += this.totalLbsOfBoth[i] * 2 / 60;
-		}
-		td.textContent = this.totalBaristas.toFixed(2) + " hrs";
+		td.textContent = (this.totalLbsOfBoth[i]).toFixed(2) + " lbs";
 		parentTRow.appendChild(td);
-
-			// hourly total
-		for(i = 0; i < this.hourArray.length; i++){
-			parentTRow = document.getElementById(tr.id);
-			td = document.createElement("td");
-			td.textContent = (this.numBaristasPerHr[i]).toFixed(2) + " hrs";
-			parentTRow.appendChild(td);
-		}
-		// End
+	// End
 	}
 }
 
-/* ========== Script ========== */
+// Fill store's necessary labor row
+// Makes Store Row
+Store.prototype.laborData = function(sectionID, tableID){
+	var parentTBody = document.getElementById(sectionID + "-" + tableID + "-" + "tBody");
+	var tr = document.createElement("tr");
+	tr.id = sectionID + "-" + tableID + "-" + "tBody" + "-tr-" + this.storeName.replace(/ /g, "");
+	parentTBody.appendChild(tr);
 
+		// Store Name
+	var parentTRow = document.getElementById(tr.id);
+	var td = document.createElement("td");
+	td.textContent = this.storeName;
+	parentTRow.appendChild(td);
+
+		// Daily Total
+	parentTRow = document.getElementById(tr.id);
+	td = document.createElement("td");
+
+	for(i = 0; i < this.hourArray.length; i++){
+		this.totalBaristas += this.totalLbsOfBoth[i] * 2 / 60;
+	}
+	td.textContent = this.totalBaristas.toFixed(2) + " hrs";
+	parentTRow.appendChild(td);
+
+		// hourly total
+	for(i = 0; i < this.hourArray.length; i++){
+		parentTRow = document.getElementById(tr.id);
+		td = document.createElement("td");
+		td.textContent = (this.numBaristasPerHr[i]).toFixed(2) + " hrs";
+		parentTRow.appendChild(td);
+	}
+	// End
+
+}
+
+
+/* ========== Script ========== */
 
 // Here it goes
 PikePlaceMarket = new Store("Pike Place Market", 14, 35, 1.2, 0.34);
@@ -248,25 +333,14 @@ SeaTacAirport = new Store("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 var shopArray = [PikePlaceMarket, CapitolHill, SeattlePublicLibrary, SouthLakeUnion, SeaTacAirport];
 
 
-
-
-
-initTable("beanSection", "beanTable", "Beans Needed");
-
-initTable("baristaSection", "baristaTable", "Baristas Needed");
-
-for(var x = 0; x < shopArray.length; x++){
-	shopArray[x].generateRandomNumbers();
-	shopArray[x].resourceData("beanSection", "beanTable");
-	shopArray[x].laborData("baristaSection", "baristaTable");
-}
-
-createFooter("beanSection", "beanTable", "lbs");
-createFooter("baristaSection", "baristaTable", "hrs");
-
+addTable();
 // Event listener part
+var randomizer = document.getElementById(randomize);
+randomize.addEventListener("click", randomizeButton);
+
 var form = document.getElementById("form");
 form.addEventListener("submit", eventHandler);
+
 
 
 
