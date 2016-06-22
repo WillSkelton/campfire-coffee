@@ -1,0 +1,101 @@
+body{
+	background-image: url(assets/paper.jpg);
+	font-family: 'Roboto', sans-serif;
+
+}
+
+header{
+	color: white;
+}
+article{
+
+}
+section{
+
+}
+section{
+
+}
+
+#story{
+	background-image: url(assets/campsite-tent-night.jpg);
+	/*font-family: 'Roboto', sans-serif;*/
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 50px;
+	width: 688px;
+	height: 372px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#hours{
+	background-image: url(assets/campfire.jpg);
+	/*font-family: 'Roboto', sans-serif;*/
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 20px;
+	width: 420px;
+	height: 236px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#menu{
+
+}
+
+#story-text{
+	background-color: white;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#story-text p{
+	color: black;
+	font-size: 18px;
+}
+
+#story-text h3{
+	color: black;
+	font-size: 24px;
+}
+
+
+#hours-text{
+	background-color: white;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 10px;
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#hours-text p{
+	color: black;
+	font-size: 18px;
+}
+
+#hours-text h2{
+	color: black;
+	font-size: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*end*/

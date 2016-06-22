@@ -100,4 +100,9 @@ input{
 	align-items: center;
 }
 
+#randomizeSection p {
+	color: white;
+	-webkit-text-stroke: 1px black;
+}
+
 /*end*/
