@@ -46,7 +46,19 @@ section{
 }
 
 #menu{
+	background-image: url(assets/campfire-coffee.jpg);
+	/*font-family: 'Roboto', sans-serif;*/
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 50px;
+	width: 400px;
+	height: 300px;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
+
 
 #story-text{
 	background-color: rgba(255, 255, 255, 0.5);
@@ -56,12 +68,10 @@ section{
 	flex-direction: column;
 	align-items: center;
 }
-
 #story-text p{
 	color: black;
 	font-size: 18px;
 }
-
 #story-text h3{
 	color: black;
 	font-size: 24px;
@@ -75,18 +85,32 @@ section{
 	flex-direction: column;
 	align-items: center;
 }
-
 #hours-text p{
 	color: black;
 	font-size: 12px;
 	margin: 2px;
 }
-
 #hours-text h2{
 	color: black;
 	font-size: 18px;
 }
 
+#menu-text{
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 10px;
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#menu-text p{
+	color: black;
+	font-size: 18px;
+}
+#menu-text h3{
+	color: black;
+	font-size: 24px;
+}
 
 
 
