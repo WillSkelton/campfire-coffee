@@ -1,20 +1,20 @@
 body{
 	background-image: url(assets/paper.jpg);
 	font-family: 'Roboto', sans-serif;
-
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 header{
 	color: white;
 }
 article{
+}
 
+section{
 }
 section{
-
-}
-section{
-
 }
 
 #story{
@@ -25,6 +25,7 @@ section{
 	padding: 50px;
 	width: 688px;
 	height: 372px;
+	margin: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -38,17 +39,16 @@ section{
 	padding: 20px;
 	width: 420px;
 	height: 236px;
+	margin: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 #menu{
-
 }
 
 #story-text{
-	background-color: white;
 	background-color: rgba(255, 255, 255, 0.5);
 	border-radius: 10px;
 	padding: 50px;
@@ -67,12 +67,10 @@ section{
 	font-size: 24px;
 }
 
-
 #hours-text{
-	background-color: white;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(85, 165, 210, 0.7);
 	border-radius: 10px;
-	padding: 50px;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -80,12 +78,13 @@ section{
 
 #hours-text p{
 	color: black;
-	font-size: 18px;
+	font-size: 12px;
+	margin: 2px;
 }
 
 #hours-text h2{
 	color: black;
-	font-size: 24px;
+	font-size: 18px;
 }
 
 
